@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: orderuser
+    url: jdbc:mysql://127.0.0.1:3306/orderservice?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    password: password
+  sql:
+    init:
+      mode: always
+  liquibase:
+    change-log: db/changelog/changelog-master.xml
+    user: orderadmin
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: validate
