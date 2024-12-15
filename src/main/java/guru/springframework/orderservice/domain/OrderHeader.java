@@ -1,9 +1,6 @@
 package guru.springframework.orderservice.domain;
 
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.AttributeOverrides;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -55,6 +52,8 @@ import lombok.experimental.SuperBuilder;
 })
 public class OrderHeader extends BaseEntity {
     private String customer;
+    @Embedded
     private Address shippingAddress;
+    @Embedded
     private Address billToAddress;
 }
