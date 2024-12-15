@@ -13,4 +13,5 @@
     <include relativeToChangelogFile="true" file="add-created-date-to-order-header.xml"/>
     <include relativeToChangelogFile="true" file="add-last_modified-date-to-order-header.xml"/>
     <include relativeToChangelogFile="true" file="add-product-table.xml"/>
+    <include relativeToChangelogFile="true" file="add-order-line-table.xml"/>
 </databaseChangeLog>
