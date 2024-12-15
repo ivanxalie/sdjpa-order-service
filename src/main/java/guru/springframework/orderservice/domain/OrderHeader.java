@@ -52,8 +52,13 @@ import lombok.experimental.SuperBuilder;
 })
 public class OrderHeader extends BaseEntity {
     private String customer;
+
     @Embedded
     private Address shippingAddress;
+
     @Embedded
     private Address billToAddress;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
 }
