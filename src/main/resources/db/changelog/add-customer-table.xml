@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
+
+    <changeSet id="create-customer-table" author="ivanxalie">
+        <createTable tableName="customer">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="customer_name" type="varchar(50)"/>
+            <column name="address" type="varchar(30)"/>
+            <column name="city" type="varchar(30)"/>
+            <column name="state" type="varchar(30)"/>
+            <column name="zip_code" type="varchar(30)"/>
+            <column name="phone" type="varchar(20)"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add-order-header-to-customer-fk" author="ivanxalie">
+        <preConditions>
+            <tableExists tableName="customer"/>
+        </preConditions>
+        <addColumn tableName="order_header">
+            <column name="customer_id" type="bigint">
+                <constraints foreignKeyName="order_customer_fk"
+                             referencedTableName="customer" referencedColumnNames="id"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="drop-customer-column-from-order-header" author="ivanxalie">
+        <preConditions>
+            <columnExists tableName="order_header" columnName="customer"/>
+        </preConditions>
+        <dropColumn tableName="order_header" columnName="customer"/>
+    </changeSet>
+
+    <changeSet id="insert-order-header-record" author="ivanxalie">
+        <preConditions>
+            <tableExists tableName="order_header"/>
+        </preConditions>
+        <insert tableName="customer">
+            <column name="customer_name" value="Customer 1"/>
+            <column name="address" value="123 Duval"/>
+            <column name="city" value="Key West"/>
+            <column name="state" value="FL"/>
+            <column name="zip_code" value="33040"/>
+            <column name="phone" value="305.292.1435"/>
+            <column name="email" value="cheeseburger@margaritville.com"/>
+        </insert>
+        <update tableName="order_header">
+            <column name="customer_id" valueComputed="(SELECT id FROM customer LIMIT 1)"/>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,5 +1,6 @@
 package guru.springframework.orderservice.repositories;
 
+import guru.springframework.orderservice.domain.Category;
 import guru.springframework.orderservice.domain.Product;
 import guru.springframework.orderservice.domain.ProductStatus;
 import org.assertj.core.api.Assertions;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -25,6 +28,12 @@ class ProductRepositoryTest {
         Product product = new Product();
         product.setDescription("New Customer");
         product.setProductStatus(ProductStatus.NEW);
+        Category category = Category.builder()
+                .description("Test category")
+                .build();
+        category.setProducts(Set.of(product));
+        product.setCategories(Set.of(category));
+
         Product savedOrder = productRepository.save(product);
 
         assertNotNull(savedOrder);
