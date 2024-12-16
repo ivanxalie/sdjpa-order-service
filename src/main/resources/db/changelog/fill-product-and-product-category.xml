@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
+
+    <changeSet id="fill-data-to-product" author="ivanxalie">
+        <preConditions>
+            <tableExists tableName="product"/>
+        </preConditions>
+        <insert tableName="product">
+            <column name="description" value="PRODUCT1"/>
+            <column name="product_status" value="NEW"/>
+            <column name="created_date" valueComputed="now()"/>
+            <column name="last_modified_date" valueComputed="now()"/>
+        </insert>
+        <insert tableName="product">
+            <column name="description" value="PRODUCT2"/>
+            <column name="product_status" value="NEW"/>
+            <column name="created_date" valueComputed="now()"/>
+            <column name="last_modified_date" valueComputed="now()"/>
+        </insert>
+        <insert tableName="product">
+            <column name="description" value="PRODUCT3"/>
+            <column name="product_status" value="NEW"/>
+            <column name="created_date" valueComputed="now()"/>
+            <column name="last_modified_date" valueComputed="now()"/>
+        </insert>
+        <insert tableName="product">
+            <column name="description" value="PRODUCT4"/>
+            <column name="product_status" value="NEW"/>
+            <column name="created_date" valueComputed="now()"/>
+            <column name="last_modified_date" valueComputed="now()"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="fill-data-to-category" author="ivanxalie">
+        <preConditions>
+            <tableExists tableName="category"/>
+        </preConditions>
+        <insert tableName="category">
+            <column name="description" value="CAT1"/>
+            <column name="created_date" valueComputed="now()"/>
+            <column name="last_modified_date" valueComputed="now()"/>
+        </insert>
+        <insert tableName="category">
+            <column name="description" value="CAT2"/>
+            <column name="created_date" valueComputed="now()"/>
+            <column name="last_modified_date" valueComputed="now()"/>
+        </insert>
+        <insert tableName="category">
+            <column name="description" value="CAT3"/>
+            <column name="created_date" valueComputed="now()"/>
+            <column name="last_modified_date" valueComputed="now()"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="fill-data-to-product-category" author="ivanxalie">
+        <preConditions>
+            <tableExists tableName="product_category"/>
+        </preConditions>
+        <insert tableName="product_category">
+            <column name="product_id" valueComputed="(select id from product where description = 'PRODUCT1')"/>
+            <column name="category_id" valueComputed="(select id from category where description = 'CAT1')"/>
+        </insert>
+        <insert tableName="product_category">
+            <column name="product_id" valueComputed="(select id from product where description = 'PRODUCT2')"/>
+            <column name="category_id" valueComputed="(select id from category where description = 'CAT1')"/>
+        </insert>
+        <insert tableName="product_category">
+            <column name="product_id" valueComputed="(select id from product where description = 'PRODUCT1')"/>
+            <column name="category_id" valueComputed="(select id from category where description = 'CAT3')"/>
+        </insert>
+        <insert tableName="product_category">
+            <column name="product_id" valueComputed="(select id from product where description = 'PRODUCT4')"/>
+            <column name="category_id" valueComputed="(select id from category where description = 'CAT3')"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
