@@ -25,6 +25,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <addPrimaryKey tableName="product_category" columnNames="product_id, category_id"/>
         <addForeignKeyConstraint baseTableName="product_category" baseColumnNames="product_id"
                                  constraintName="pc_product_id_fk" referencedTableName="product"
                                  referencedColumnNames="id"/>
