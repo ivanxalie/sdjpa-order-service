@@ -2,7 +2,9 @@ package guru.springframework.orderservice.repositories;
 
 import guru.springframework.orderservice.domain.OrderHeader;
 import guru.springframework.orderservice.domain.OrderLine;
-import org.assertj.core.api.Assertions;
+import guru.springframework.orderservice.domain.Product;
+import guru.springframework.orderservice.domain.ProductStatus;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -21,6 +23,20 @@ class OrderHeaderRepositoryTest {
 
     @Autowired
     OrderHeaderRepository orderHeaderRepository;
+
+    @Autowired
+    ProductRepository productRepository;
+
+    Product product;
+
+    @BeforeEach
+    void setUp() {
+        Product newProduct = Product.builder()
+                .productStatus(ProductStatus.NEW)
+                .description("test product")
+                .build();
+        product = productRepository.saveAndFlush(newProduct);
+    }
 
     @Test
     void testSaveOrder() {
@@ -47,6 +63,7 @@ class OrderHeaderRepositoryTest {
         OrderLine orderLine = OrderLine.builder()
                 .quantityOrdered(5)
                 .orderHeader(orderHeader)
+                .product(product)
                 .build();
 
         orderHeader.setOrderLines(Set.of(orderLine));
@@ -63,5 +80,8 @@ class OrderHeaderRepositoryTest {
         assertNotNull(fetchedOrder.getLastModifiedDate());
         assertNotNull(fetchedOrder.getOrderLines());
         assertThat(fetchedOrder.getOrderLines()).hasSize(1);
+        assertThat(fetchedOrder.getOrderLines().iterator().next().getProduct()).isNotNull();
     }
+
+
 }
