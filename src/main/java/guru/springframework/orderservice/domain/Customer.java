@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
@@ -25,10 +25,10 @@ public class Customer extends BaseEntity {
     private String email;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
-    private Set<OrderHeader> orders;
+    @Builder.Default
+    private Set<OrderHeader> orders = new LinkedHashSet<>();
 
     public void addOrder(OrderHeader orderHeader) {
-        if (orders == null) orders = new HashSet<>();
         orders.add(orderHeader);
         orderHeader.setCustomer(this);
     }
