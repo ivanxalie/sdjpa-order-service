@@ -1,10 +1,7 @@
 package guru.springframework.orderservice.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.sql.Timestamp;
@@ -19,6 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @SuperBuilder
 @Data
+@ToString(callSuper = true)
 @AttributeOverrides({
         @AttributeOverride(
                 name = "shippingAddress.address",
@@ -65,6 +63,6 @@ public class OrderHeader extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    @OneToMany(mappedBy = "orderHeader")
+    @OneToMany(mappedBy = "orderHeader", cascade = CascadeType.PERSIST)
     private Set<OrderLine> orderLines;
 }

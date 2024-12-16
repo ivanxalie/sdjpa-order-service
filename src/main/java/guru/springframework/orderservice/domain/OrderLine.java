@@ -2,10 +2,7 @@ package guru.springframework.orderservice.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(callSuper = true)
@@ -14,8 +11,11 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @Data
+@ToString(callSuper = true)
 public class OrderLine extends BaseEntity {
     private Integer quantityOrdered;
     @ManyToOne
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private OrderHeader orderHeader;
 }

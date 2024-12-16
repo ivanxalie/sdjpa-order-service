@@ -43,7 +43,6 @@ class OrderHeaderRepositoryTest {
     void testSaveOrderWithLine() {
         OrderHeader orderHeader = new OrderHeader();
         orderHeader.setCustomer("New Customer");
-        OrderHeader savedOrder = orderHeaderRepository.save(orderHeader);
 
         OrderLine orderLine = OrderLine.builder()
                 .quantityOrdered(5)
@@ -51,6 +50,7 @@ class OrderHeaderRepositoryTest {
                 .build();
 
         orderHeader.setOrderLines(Set.of(orderLine));
+        OrderHeader savedOrder = orderHeaderRepository.save(orderHeader);
 
         assertNotNull(savedOrder);
         assertNotNull(savedOrder.getId());
