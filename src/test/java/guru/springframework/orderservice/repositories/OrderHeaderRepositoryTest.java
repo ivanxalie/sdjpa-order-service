@@ -62,11 +62,10 @@ class OrderHeaderRepositoryTest {
 
         OrderLine orderLine = OrderLine.builder()
                 .quantityOrdered(5)
-                .orderHeader(orderHeader)
                 .product(product)
                 .build();
 
-        orderHeader.setOrderLines(Set.of(orderLine));
+        orderHeader.addOrderLine(orderLine);
         OrderHeader savedOrder = orderHeaderRepository.save(orderHeader);
 
         assertNotNull(savedOrder);
