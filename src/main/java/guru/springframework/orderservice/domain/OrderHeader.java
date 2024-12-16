@@ -53,6 +53,7 @@ import java.util.Set;
 })
 public class OrderHeader extends BaseEntity {
     @ManyToOne
+    @ToString.Exclude
     private Customer customer;
 
     @Embedded

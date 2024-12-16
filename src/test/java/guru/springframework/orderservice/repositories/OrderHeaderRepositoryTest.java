@@ -42,6 +42,14 @@ class OrderHeaderRepositoryTest {
 
         Customer customer = Customer.builder()
                 .name("New Customer")
+                .address(Address.builder()
+                        .address("address")
+                        .state("state")
+                        .city("city")
+                        .zipCode("zipCode")
+                        .build())
+                .phone("+79181488")
+                .email("example@test.com")
                 .build();
 
         customer.addOrder(orderHeader);
