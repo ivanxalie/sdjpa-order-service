@@ -1,6 +1,7 @@
 package guru.springframework.orderservice.repositories;
 
 import guru.springframework.orderservice.domain.*;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("local")
 @DataJpaTest
@@ -18,6 +19,9 @@ class OrderHeaderRepositoryTest {
 
     @Autowired
     OrderHeaderRepository orderHeaderRepository;
+
+    @Autowired
+    CustomerRepository customerRepository;
 
     Product product;
 
@@ -95,5 +99,31 @@ class OrderHeaderRepositoryTest {
         assertThat(fetchedOrder.getOrderLines()).hasSize(1);
         assertThat(fetchedOrder.getOrderLines().iterator().next().getProduct()).isNotNull();
         assertThat(fetchedOrder.getOrderApproval()).isNotNull();
+    }
+
+    @Test
+    void testDeleteCascade() {
+        OrderHeader orderHeader = new OrderHeader();
+        Customer customer = new Customer();
+        customer.setName("new Customer");
+        orderHeader.setCustomer(customerRepository.save(customer));
+
+        OrderLine orderLine = new OrderLine();
+        orderLine.setQuantityOrdered(3);
+        orderLine.setProduct(product);
+
+        orderHeader.addOrderLine(orderLine);
+        OrderHeader savedOrder = orderHeaderRepository.saveAndFlush(orderHeader);
+
+        System.out.println("order saved and flushed");
+
+        orderHeaderRepository.deleteById(savedOrder.getId());
+        orderHeaderRepository.flush();
+
+        assertThrows(EntityNotFoundException.class, () -> {
+            OrderHeader fetchedOrder = orderHeaderRepository.getById(savedOrder.getId());
+
+            assertNull(fetchedOrder);
+        });
     }
 }
