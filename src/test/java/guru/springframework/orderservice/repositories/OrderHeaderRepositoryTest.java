@@ -107,6 +107,4 @@ class OrderHeaderRepositoryTest {
         assertThat(fetchedOrder.getOrderLines().iterator().next().getProduct()).isNotNull();
         assertThat(fetchedOrder.getOrderApproval()).isNotNull();
     }
-
-
 }
