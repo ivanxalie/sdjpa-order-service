@@ -3,7 +3,6 @@ package guru.springframework.orderservice.repositories;
 import guru.springframework.orderservice.domain.Category;
 import guru.springframework.orderservice.domain.Product;
 import guru.springframework.orderservice.domain.ProductStatus;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -50,7 +49,7 @@ class ProductRepositoryTest {
 
     @Test
     void testGetCategory() {
-        Product product = productRepository.findByDescription("PRODUCT1");
+        Product product = productRepository.findByDescription("PRODUCT1").orElse(null);
 
         assertNotNull(product);
         assertThat(product.getCategories()).isNotNull().hasSize(2);

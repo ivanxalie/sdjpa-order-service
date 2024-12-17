@@ -82,4 +82,9 @@ public class OrderHeader extends BaseEntity {
         this.orderApproval = orderApproval;
         orderApproval.setOrderHeader(this);
     }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+        customer.getOrders().add(this);
+    }
 }
