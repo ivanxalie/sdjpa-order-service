@@ -112,6 +112,12 @@ class OrderHeaderRepositoryTest {
         orderLine.setQuantityOrdered(3);
         orderLine.setProduct(product);
 
+        OrderApproval orderApproval = OrderApproval.builder()
+                .approvedBy("me")
+                .build();
+
+        orderHeader.setOrderApproval(orderApproval);
+
         orderHeader.addOrderLine(orderLine);
         OrderHeader savedOrder = orderHeaderRepository.saveAndFlush(orderHeader);
 
