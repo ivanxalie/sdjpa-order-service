@@ -26,6 +26,7 @@ public class Customer extends BaseEntity {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
     @Builder.Default
+    @EqualsAndHashCode.Exclude
     private Set<OrderHeader> orders = new LinkedHashSet<>();
 
     public void addOrder(OrderHeader orderHeader) {

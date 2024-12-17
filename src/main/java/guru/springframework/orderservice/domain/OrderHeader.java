@@ -52,7 +52,7 @@ import java.util.Set;
         ),
 })
 public class OrderHeader extends BaseEntity {
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @ToString.Exclude
     private Customer customer;
 
@@ -68,7 +68,7 @@ public class OrderHeader extends BaseEntity {
     @OneToMany(mappedBy = "orderHeader", cascade = CascadeType.PERSIST)
     private Set<OrderLine> orderLines;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "order_approval_id")
     private OrderApproval orderApproval;
 

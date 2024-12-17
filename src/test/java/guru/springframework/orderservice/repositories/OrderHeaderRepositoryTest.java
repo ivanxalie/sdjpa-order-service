@@ -24,9 +24,6 @@ class OrderHeaderRepositoryTest {
     @Autowired
     ProductRepository productRepository;
 
-    @Autowired
-    OrderApprovalRepository orderApprovalRepository;
-
     Product product;
 
     @BeforeEach
@@ -85,13 +82,11 @@ class OrderHeaderRepositoryTest {
 
         orderHeader.addOrderLine(orderLine);
 
-        OrderApproval approval = OrderApproval.builder()
+        orderHeader.setOrderApproval(OrderApproval.builder()
                 .approvedBy("me")
-                .build();
-        OrderApproval savedApproval = orderApprovalRepository.save(approval);
-        orderHeader.setOrderApproval(savedApproval);
+                .build());
 
-        OrderHeader savedOrder = orderHeaderRepository.save(orderHeader);
+        OrderHeader savedOrder = orderHeaderRepository.saveAndFlush(orderHeader);
 
         assertNotNull(savedOrder);
         assertNotNull(savedOrder.getId());
