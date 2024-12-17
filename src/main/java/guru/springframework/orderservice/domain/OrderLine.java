@@ -1,5 +1,6 @@
 package guru.springframework.orderservice.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
@@ -19,6 +20,6 @@ public class OrderLine extends BaseEntity {
     @ToString.Exclude
     private OrderHeader orderHeader;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Product product;
 }

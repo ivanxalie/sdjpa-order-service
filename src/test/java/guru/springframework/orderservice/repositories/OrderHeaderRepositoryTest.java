@@ -8,8 +8,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.Set;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -21,18 +19,14 @@ class OrderHeaderRepositoryTest {
     @Autowired
     OrderHeaderRepository orderHeaderRepository;
 
-    @Autowired
-    ProductRepository productRepository;
-
     Product product;
 
     @BeforeEach
     void setUp() {
-        Product newProduct = Product.builder()
+        product = Product.builder()
                 .productStatus(ProductStatus.NEW)
                 .description("test product")
                 .build();
-        product = productRepository.saveAndFlush(newProduct);
     }
 
     @Test
