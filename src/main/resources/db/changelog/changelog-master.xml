@@ -18,4 +18,5 @@
     <include relativeToChangelogFile="true" file="add-category-and-product-category-table.xml"/>
     <include relativeToChangelogFile="true" file="fill-product-and-product-category.xml"/>
     <include relativeToChangelogFile="true" file="add-customer-table.xml"/>
+    <include relativeToChangelogFile="true" file="add-order-approval-table.xml"/>
 </databaseChangeLog>
