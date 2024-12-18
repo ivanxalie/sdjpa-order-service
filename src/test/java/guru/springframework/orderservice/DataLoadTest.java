@@ -13,8 +13,10 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @ActiveProfiles("local")
 @DataJpaTest
@@ -105,5 +107,26 @@ public class DataLoadTest {
                     p1.setProductStatus(ProductStatus.NEW);
                     return productRepository.save(p1);
                 });
+    }
+
+    @Test
+    void testLazyVsEager() {
+        OrderHeader orderHeader = orderHeaderRepository.findById(11489L).orElseThrow();
+
+        System.out.printf("Order id id: %s%n", orderHeader.getId());
+        System.out.printf("Customer name is: %s%n", orderHeader.getCustomer().getName());
+    }
+
+    @Test
+    void testN_PlusOneProblem() {
+        Customer customer = customerRepository.findByNameIgnoreCase(TEST_CUSTOMER).orElse(null);
+
+        IntSummaryStatistics totalOrdered = orderHeaderRepository
+                .findAllByCustomer(customer)
+                .stream()
+                .flatMap(orderHeader -> orderHeader.getOrderLines().stream())
+                .collect(Collectors.summarizingInt(OrderLine::getQuantityOrdered));
+
+        System.out.printf("Total ordered: %s%n", totalOrdered.getSum());
     }
 }
