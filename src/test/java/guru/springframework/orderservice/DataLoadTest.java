@@ -129,4 +129,19 @@ public class DataLoadTest {
 
         System.out.printf("Total ordered: %s%n", totalOrdered.getSum());
     }
+
+    @Test
+    void testDbLock() {
+        Long id = 11489L;
+
+        OrderHeader orderHeader = orderHeaderRepository.findById(id).orElseThrow();
+
+        Address billTo = Address.builder()
+                .address("Bill me")
+                .build();
+        orderHeader.setBillToAddress(billTo);
+        orderHeaderRepository.saveAndFlush(orderHeader);
+
+        System.out.println("I updated the order");
+    }
 }
