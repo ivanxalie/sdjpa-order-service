@@ -27,6 +27,7 @@ class ProductRepositoryTest {
         Product product = new Product();
         product.setDescription("New Customer");
         product.setProductStatus(ProductStatus.NEW);
+        product.setQuantityOnHand(1_000);
         Category category = Category.builder()
                 .description("Test category")
                 .build();
@@ -44,6 +45,7 @@ class ProductRepositoryTest {
         assertNotNull(fetchedOrder.getId());
         assertNotNull(fetchedOrder.getCreatedDate());
         assertNotNull(fetchedOrder.getLastModifiedDate());
+        assertNotNull(fetchedOrder.getQuantityOnHand());
         assertNotNull(fetchedOrder.getCategories());
     }
 

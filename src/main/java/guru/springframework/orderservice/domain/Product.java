@@ -27,4 +27,6 @@ public class Product extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     @EqualsAndHashCode.Exclude
     private Set<Category> categories;
+
+    private Integer quantityOnHand;
 }
