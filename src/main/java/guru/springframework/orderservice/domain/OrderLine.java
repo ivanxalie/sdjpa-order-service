@@ -3,6 +3,7 @@ package guru.springframework.orderservice.domain;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Version;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -19,6 +20,9 @@ public class OrderLine extends BaseEntity {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private OrderHeader orderHeader;
+
+    @Version
+    private Integer version;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Product product;
