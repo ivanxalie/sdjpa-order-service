@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
+
+    <changeSet id="update-quantity-in-product" author="ivanxalie">
+        <preConditions>
+            <tableExists tableName="product"/>
+        </preConditions>
+        <insert tableName="product">
+            <column name="description" value="PRODUCT1"/>
+            <column name="product_status" value="NEW"/>
+            <column name="created_date" valueComputed="now()"/>
+            <column name="last_modified_date" valueComputed="now()"/>
+        </insert>
+        <update tableName="product">
+            <column name="quantity_on_hand" value="10"/>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>

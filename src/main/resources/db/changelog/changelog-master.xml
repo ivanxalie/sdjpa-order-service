@@ -23,4 +23,6 @@
     <include relativeToChangelogFile="true" file="add-version-to-customer.xml"/>
     <include relativeToChangelogFile="true" file="add-version-to-order-header.xml"/>
     <include relativeToChangelogFile="true" file="add-version-to-order-line.xml"/>
+    <include relativeToChangelogFile="true" file="add-quantity-on-hand-to-product.xml"/>
+    <include relativeToChangelogFile="true" file="update-quantity-in-product.xml"/>
 </databaseChangeLog>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
+
+    <changeSet id="add-quantity-on-hand-to-product" author="ivanxalie">
+        <preConditions>
+            <tableExists tableName="product"/>
+        </preConditions>
+        <addColumn tableName="product">
+            <column name="quantity_on_hand" type="integer" />
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
