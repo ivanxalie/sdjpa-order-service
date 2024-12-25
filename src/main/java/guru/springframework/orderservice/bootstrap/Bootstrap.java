@@ -2,7 +2,6 @@ package guru.springframework.orderservice.bootstrap;
 
 import guru.springframework.orderservice.domain.Customer;
 import guru.springframework.orderservice.repositories.CustomerRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
