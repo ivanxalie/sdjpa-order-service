@@ -21,4 +21,6 @@
     <include relativeToChangelogFile="true" file="add-order-approval-table.xml"/>
     <include relativeToChangelogFile="true" file="add-header-id-to-order-approval.xml"/>
     <include relativeToChangelogFile="true" file="add-version-to-customer.xml"/>
+    <include relativeToChangelogFile="true" file="add-version-to-order-header.xml"/>
+    <include relativeToChangelogFile="true" file="add-version-to-order-line.xml"/>
 </databaseChangeLog>
