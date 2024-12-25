@@ -24,6 +24,9 @@ public class Customer extends BaseEntity {
     private String phone;
     private String email;
 
+    @Version
+    private Integer version;
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
     @Builder.Default
     @EqualsAndHashCode.Exclude
