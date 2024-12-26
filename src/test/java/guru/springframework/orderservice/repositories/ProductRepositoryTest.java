@@ -3,10 +3,13 @@ package guru.springframework.orderservice.repositories;
 import guru.springframework.orderservice.domain.Category;
 import guru.springframework.orderservice.domain.Product;
 import guru.springframework.orderservice.domain.ProductStatus;
+import guru.springframework.orderservice.service.ProductService;
+import guru.springframework.orderservice.service.ProductServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Set;
@@ -17,10 +20,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ActiveProfiles("local")
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Import(ProductServiceImpl.class)
 class ProductRepositoryTest {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    ProductService productService;
 
     @Test
     void testSaveOrder() {
@@ -55,5 +62,19 @@ class ProductRepositoryTest {
 
         assertNotNull(product);
         assertThat(product.getCategories()).isNotNull().hasSize(2);
+    }
+
+    @Test
+    void addAndUpdateProduct() {
+        Product product = Product.builder()
+                .description("My product")
+                .productStatus(ProductStatus.NEW)
+                .build();
+
+        Product saved = productService.save(product);
+
+        Product saved2 = productService.updateQuantityOnHand(saved.getId(), 25);
+
+        System.out.println(saved2.getQuantityOnHand());
     }
 }
