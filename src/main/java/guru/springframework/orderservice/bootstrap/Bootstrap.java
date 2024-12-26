@@ -42,7 +42,7 @@ public class Bootstrap implements CommandLineRunner {
         customerRepository.delete(saved3);
     }
 
-    public void updateProduct() {
+    private void updateProduct() {
         Product product = Product.builder()
                 .description("My product")
                 .productStatus(ProductStatus.NEW)
