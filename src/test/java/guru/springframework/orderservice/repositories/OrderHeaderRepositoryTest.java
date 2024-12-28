@@ -43,7 +43,7 @@ class OrderHeaderRepositoryTest {
                 .address(Address.builder()
                         .address("address")
                         .state("state")
-                        .city("city")
+                        .city("city".repeat(50))
                         .zipCode("zipCode")
                         .build())
                 .phone("+79181488")
@@ -51,6 +51,8 @@ class OrderHeaderRepositoryTest {
                 .build();
 
         customer.addOrder(orderHeader);
+
+        customerRepository.save(customer);
 
         assertNotNull(savedOrder);
         assertNotNull(savedOrder.getId());

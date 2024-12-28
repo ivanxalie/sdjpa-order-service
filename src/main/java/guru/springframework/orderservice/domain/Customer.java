@@ -1,6 +1,8 @@
 package guru.springframework.orderservice.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -16,12 +18,16 @@ import java.util.Set;
 @ToString(callSuper = true)
 public class Customer extends BaseEntity {
     @Column(name = "customer_name")
+    @Size(max = 50)
     private String name;
 
     @Embedded
+    @Valid
     private Address address;
 
+    @Size(max = 20)
     private String phone;
+    @Size(max = 255)
     private String email;
 
     @Version
